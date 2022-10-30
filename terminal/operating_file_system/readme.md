@@ -1,10 +1,10 @@
-# Administrating Packages
+# Operating the (linux-based) File system
 ---
 Notes on useful terminal commands and what they do
 
 > Author: Omgitskuei
 > 
-> Last Updated: 2022/09/19
+> Last Updated: 2022/10/30
 > 
 > Status: Active Development
 
@@ -16,33 +16,53 @@ Note, if ```apt``` doesn't work, try using ```apt-get```. Older versions of apt 
 ---
 | Date Added | User request | Command | Description | Tested on |
 | ------ | ------ | ------ | ------ | ------ |
-| 2022/09/04 | "Install a package called ```rpi-imager```, please?" | ```sudo apt install rpi-imager``` | Installs the "RPI Imager" program, which is used to create SD card images of Raspberry Pi OS's. | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/09/04 | "Do my packages have updates?" | ```sudo apt update``` | Lists info on upgrades for all packages that can be updated. Note, this doesn't install the updates. | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/09/19 | "List all local packages on this machine" | ```dpkg --list``` | dpkg only indexes local packages - Lists all local pacakges | NOT YET TESTED |
-| 2022/09/19 | "List all local installed packages on this machine" | ```apt list --installed``` | Lists all local pacakges that are installed, do NOT forget the flag otherwise all packages listed anywhere (even on remote online repositories) will be listed. | NOT YET TESTED |
-| 2022/09/10 | "What are all these packages that can be updated?" | ```apt list --upgradable``` | Lists info on packages that can be updated. Note, this doesn't install the updates. | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/09/04 | "What's my current disk space?" | ```df -h``` | Display all filesystems' total size, used, avail, used%, path. NOTE, apt will NOT check if disk space is sufficient for an install or upgrade. | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/09/04 | "Delete archived packages to free disk space, please?" | ```sudo apt clean``` | All downloaded packages (.deb) are kept in /apt/archive, can be deleted to free disk space | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/09/04 | "Install all updates for all packages with available upgrades, please?" | ```sudo apt full-upgrade``` | Download and install all updates for all upgradable packages, some will be deprecated and archived. | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/09/04 | "Delete deprecated packages, please?" | ```sudo apt autoremove``` | Delete all deprecated packages. | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/09/04 | "Search for 'locomotive'-related packages." | ```apt-cache search locomotive``` | Searches package repos like packages.ubuntu.com for public info on packages. No changes made so ```sudo``` not needed. Eg. Keyword 'locomotive' used. One of the results will be a package called "sl" (abbr. "steam locomotive"). | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/09/04 | "Show me details on this package ```sl``` | ```apt-cache show sl``` | Display details about the package before/after installing a package. Note, you can click on URL hyperlinks inside Terminal with Alt + Left Click. | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/09/04 | "Install a package called ```sl```, please?" | ```sudo apt install sl``` | Linux users using terminal to navigate folder trees will be using the command ```ls``` a lot. When "sl" typos happen, terminal will run ```sl``` and display a textart train running across the terminal instead of a linux error message about no recognized "sl" command. | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/09/04 | "Run this package called ```sl```." | ```sl```, ```sl -F```, ```sl -a```, ```sl -l```, ```sl -c``` | Packages can usually take 'flags'. sl takes '-F' (case-sensitive), '-a', '-l', and '-c' flags. | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/09/04 | "Uninstall a package called ```sl```, please?." | ```sudo apt remove sl``` | Uninstalls the package but leaves its config files, if any. Will confirm with user unless given the ```-y``` flag | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/09/04 | "Uninstall a package called sl, and also delete all the package's config files, please?" | ```sudo apt purge sl``` | Uninstalls the package and delete its config files. | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/10/30 | "Print the current working directory." | ```pwd``` | Print current working directory. Eg, entering ```pwd``` in a fresh terminal will show "/home/usrnm" where usrnm is the user name. | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/10/30 | "Show me what's in the current working directory." | ```ls``` | Print current work directory contents. Note, how results is printed and what defines 'contents' can be customized. | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/10/30 | "Show what's in the current directory (including hidden files)." | ```ls -a``` | ```-a``` option abbreviates "all". | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/10/30 | "Change to previous directory." | ```cd -``` | Useful if the previous one isn't a parent or child of the current directory. | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/10/30 | "Change to home directory of current user." | ```cd``` | Note, no path provided. | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/10/30 | "Change to home directory of a particular user." | ```cd ~username``` | Note, you may not have permission to write in another user's /home. | Raspberry Pi OS, based on Debian (Bullseye) |
+
 
 ### Running the program
 ---
 Open the terminal on your linux system and type the command into the terminal, and press Enter.
 
+
 ### Notes
 ---
-##### Difference between apt and dpkg
+##### More on linux file systems
+- "Directory" and "Folder" are used interchangeably.
+- The first folder (that contains all other folders) is the "root". This means linux systems have one single file system. The file system GUI shows this singular tree upended with root at the top.
+- Directory of root is nothingness/a space/"". So the system's users folder "usr" is in "/usr" - that space/nothing in front of the slash "/" is root. Root isn't actually spent out. 
+- Linux file systems is a hierarchical system where "everything is a file", including folders. In Linux, there's no difference between a file and a directory.
+- For detachable storages like USBs, they're each 'mounted' at some point in the file system tree.
+- Each user is given their own /home directory. When that user starts a new terminal session, the terminal starts them at their /home.
+- In scripts, try to write relative paths instead of absolute paths.
+- "username@raspberrypi:~/Documents" might be displayed on the terminal. The "~" means the /home of a user. This dir points to the Documents folder in their /home.
+- If you typed ```pwd``` at "username@raspberrypi:~/Documents", it'll say "/home/username/Documents".
+- If you ```cd``` to root and typed ```pwd```, it'll print "/".
+- There are special symbols for using file systems; "." means working/current directory. ".." means parent directory. Note, in almost all cases, the "." current directory can be omitted.
+- 
+
+
+##### More on ls
 - When user calls ```apt``` to install packages and their dependencies, under the hood, ```apt``` calls ```dpkg``` to do the installing.
 - apt can search online package repositories for information about packages (maintainer, description, dependencies, etc), while dpkg is local only.
 - apt can download packages and their dependencies, while dpkg cannot.
 - apt will install dependencies needed by a package automatically when the user install that package, while dpkg will not handle dependencies for the user.
+
+
+
+
+
+
+
+
+
+
+
+### Work in progress... ###
 
 | Common Use cases | Supported by ```apt``` | Supported by ```dpkg``` |
 | ------ | ------ | ------ |
