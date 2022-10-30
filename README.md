@@ -36,4 +36,4 @@ Copyright and license notices must be preserved. Contributors provide an express
    [terminalAdminPackages]: <https://github.com/omgitskuei/RPiDev/tree/main/terminal/administrating_packages>
    [terminalSys]: <https://github.com/omgitskuei/RPiDev/tree/main/terminal/system>
    [terminalFileOps]: <https://github.com/omgitskuei/RPiDev/tree/main/terminal/operating_file_system>
-   [rpi400]" <https://github.com/omgitskuei/RPiDev/tree/main/terminal/RPi400>
+   [rpi400]: <https://github.com/omgitskuei/RPiDev/tree/main/terminal/RPi400>
