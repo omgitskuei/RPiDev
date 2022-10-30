@@ -3,12 +3,14 @@
 import sys
 import os
 import logging
-# from gpiozero import CPUTemperature
 import psutil
 import gpiozero
 import decimal
 from PIL import Image, ImageDraw, ImageFont
 import time
+
+# init logger
+logging.basicConfig(level=logging.DEBUG)
 
 # import necessary waveshare_epd library
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
@@ -21,9 +23,6 @@ logging.info("Done.")
 # save path to .../RPiDev/RPi400/Cyberdeck_Stats_Monitor/pic
 picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
 
-# init logger
-logging.basicConfig(level=logging.DEBUG)
-
 # init global vars
 cpuTemp = 0.0
 cpuUsage = 0.0
@@ -32,6 +31,9 @@ ramUsed = ""
 ramFree = ""
 diskUsage = 0
 epd = None
+# ePaper display dimension is 250x122
+displayWidth = 250
+displayHeight = 122
 
 # Note: Returns str
 def getCPUTemp_os():
@@ -100,30 +102,26 @@ def main():
         epd.Clear(0xFF)
         logging.info("Done.")
         
-        logging.info("Preparing to draw...")
-        image = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame 
+        logging.info("Writing bmp image into buffer...")
+        # image = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame 
+        image = Image.open(os.path.join(picdir + '/bmps', 'combined.bmp'))
         draw = ImageDraw.Draw(image)
         logging.info("Done.")
         
-#         logging.info("Writing bmp image onto display...")
-#         
-#         logging.info("Done.")
+        # For debugging purposes, draw two lines splitting the display into quads
+        # draw.line([(0, (displayHeight/2)), (displayWidth, (displayHeight/2))], fill = 0,width = 1) # draw horizontal line spliting screen halfway down
+        # draw.line([((displayWidth/2), 0),((displayWidth/2),122)], fill = 0,width = 1) # draw vertical line spliting screen down middle
         
-        # ePaper display dimension is 250x122
-        displayWidth = 250
-        displayHeight = 122
-        
-        draw.line([(0, (displayHeight/2)), (displayWidth, (displayHeight/2))], fill = 0,width = 1) # draw horizontal line spliting screen halfway down
-        draw.line([((displayWidth/2), 0),((displayWidth/2),122)], fill = 0,width = 1) # draw vertical line spliting screen down middle
-        
-        logging.info("Writing data onto display...")
-        
+        logging.info("Writing data into buffer...")
         topPadding = 15
         leftPadding = 50
         draw.text((leftPadding,                                0 + topPadding), cpuTemp  + "°C", font = font24, fill = 0)
         draw.text(((displayWidth/2) + leftPadding, 0 + topPadding), '{}%'.format(cpuUsage), font = font24, fill = 0)
         draw.text((leftPadding,                                (displayHeight/2) + topPadding), '{}%'.format(roundDownToOneDecimal(ramUsed/ramTot*100)), font = font24, fill = 0)
         draw.text(((displayWidth/2) + leftPadding, (displayHeight/2) + topPadding), '{}%'.format(diskUsage), font = font24, fill = 0)
+        logging.info("Done.")
+        
+        logging.info("Displaying the buffer onto the ePaper")
         epd.display(epd.getbuffer(image))
         logging.info("Done.")
         
@@ -132,8 +130,6 @@ def main():
         logging.info("Putting ePaper display to sleep...")
         epd.sleep()
         logging.info("Done.")
-        
-        
         
         exit()
         
