@@ -4,7 +4,7 @@ Notes on useful terminal commands and what they do
 
 > Author: Omgitskuei
 > 
-> Last Updated: 2022/09/19
+> Last Updated: 2022/10/30
 > 
 > Status: Active Development
 
