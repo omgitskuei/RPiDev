@@ -17,12 +17,18 @@ Note, if ```apt``` doesn't work, try using ```apt-get```. Older versions of apt 
 | Date Added | User request | Command | Description | Tested on |
 | ------ | ------ | ------ | ------ | ------ |
 | 2022/10/30 | "Print the current working directory." | ```pwd``` | Print current working directory. Eg, entering ```pwd``` in a fresh terminal will show "/home/usrnm" where usrnm is the user name. | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/10/30 | "Show me what's in the current working directory." | ```ls``` | Print current work directory contents. Note, how results is printed and what defines 'contents' can be customized. | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/10/30 | "Show what's in the current directory (including hidden files)." | ```ls -a``` | ```-a``` option abbreviates "all". | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/10/30 | "Show contents of current directory." | ```ls``` | Print current work directory contents. Note, how results is printed and what defines 'contents' can be customized. | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/10/30 | "Show contents of current directory, including hidden files." | ```ls -a``` | ```-a``` option abbreviates "all". | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/11/02 | "List contents of current directory." | ```ls -l``` | This option can be combined with other options - eg. ```ls -al```. The options' order doesn't matter. | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/11/02 | "Show contents of current directory, order by files' modified date." | ```ls -t``` | Results sorted by files' modified date where most recent is first. | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/11/02 | "Show contents of current directory, with the current order reversed." | ```ls --reverse``` | This can be combined with other options, like with ```-t``` for least recent first. | Raspberry Pi OS, based on Debian (Bullseye) |
 | 2022/10/30 | "Change to previous directory." | ```cd -``` | Useful if the previous one isn't a parent or child of the current directory. | Raspberry Pi OS, based on Debian (Bullseye) |
 | 2022/10/30 | "Change to home directory of current user." | ```cd``` | Note, no path provided. | Raspberry Pi OS, based on Debian (Bullseye) |
-| 2022/10/30 | "Change to home directory of a particular user." | ```cd ~username``` | Note, you may not have permission to write in another user's /home. | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/10/30 | "Change to home directory of a particular user." | ```cd ~[user_name]``` | Note, you may not have permission to write in another user's /home. | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/11/02 | "Determine a file's file type." | ```file [some_file_name]``` | The output is in this format: ```[file_name].[file_extension]: [file_type]", eg. "rpdiags.txt: ASCII text```. | Raspberry Pi OS, based on Debian (Bullseye) |
+| 2022/11/02 | "Show the contents of this file." | ```less [some_file_name]``` | Use ```[CTRL] + [z]``` to exit the document viewer. | Raspberry Pi OS, based on Debian (Bullseye) |
 
+| 2022/11/02 | "." | ```a``` | . | Raspberry Pi OS, based on Debian (Bullseye) |
 
 ### Running the program
 ---
@@ -43,7 +49,8 @@ Open the terminal on your linux system and type the command into the terminal, a
 - If you typed ```pwd``` at "username@raspberrypi:~/Documents", it'll say "/home/username/Documents".
 - If you ```cd``` to root and typed ```pwd```, it'll print "/".
 - There are special symbols for using file systems; "." means working/current directory. ".." means parent directory. Note, in almost all cases, the "." current directory can be omitted.
-- 
+- Linux OS doesn't rely on file extensions (eg, .txt) to determine file type or purpose, so Linux users can name files any way they want. That said, some apps and packages do defer to file extensions.
+- Do not use spaces when naming files. This makes accessing these files via terminal difficult.
 
 
 ##### More on ls

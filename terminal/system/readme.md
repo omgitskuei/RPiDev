@@ -21,9 +21,10 @@ A non-exhaustive list of terminal commands I've googled, or found scatter across
 | 2022/09/04 | "Print OS info." | ```cat /etc/*-release``` | Displays OS info; OS name, Version (ID, Codename), home-url, bug-report-url. | Raspberry Pi 400, Raspbian (Debian, Bullseye) |
 | 2022/10/30 | "Print current date." | ```date``` | Displays system's current date in format "DOW DOM MON YYYY HH:MM:SS AM/PM 'CST'". Note, CST timezone is always displayed, CST is the wrong timezone for Taiwan but changing Raspberry Pi Configuration -> Localization settings has no affect. Also, format changes based on Localization settings. | Raspberry Pi 400, Raspbian (Debian, Bullseye) |
 | 2022/10/30 | "Display RAM/memory usage." | ```free``` | Displays total, used, free, available RAM in KB. | Raspberry Pi 400, Raspbian (Debian, Bullseye) |
-| 2022/10/30 | "Open virtual terminal." | ```[CTRL] + [ALT] + [F1-F6]``` | Terminals run behind the GUI, access virtual terminals 1 to 6 with [F1] to [F6]. Switch between with [CTRL] + [ALT] + [F#]. [CLTR] + [ALT] + [F7] to return to desktop. | Raspberry Pi 400, Raspbian (Debian, Bullseye) |
+| 2022/11/03 | "Show all installed systemd units" | ```systemctl list-unit-files``` | . | Raspberry Pi 400, Raspbian (Debian, Bullseye) |
+
 | 2022/10/30 | "" | `````` | . | Raspberry Pi 400, Raspbian (Debian, Bullseye) |
-| 2022/10/30 | "Close terminal" | ```exit``` | Closes the terminal. | Raspberry Pi 400, Raspbian (Debian, Bullseye) |
+
 
 
 ### Running the program
@@ -32,6 +33,7 @@ Open the terminal emulator on your linux system and type the command into the te
 
 
 ### Notes
+
 
 ##### Difference between running a terminal emulator and working with a virtual terminal
 - Diff1
