@@ -1,0 +1,10 @@
+[Unit]
+Description=On shutdown/Reboot, clear ePaper display to reset state
+After=cron.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/kfctr400/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/python/clear.py 
+ExecReload=cd
+RemainAfterExit=no
+ 
