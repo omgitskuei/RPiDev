@@ -17,24 +17,26 @@ Here, notes are tested on Raspberry Pi 400. The distro used by the model will be
 ### _Terminal_
 | Link | Description |
 | ------ | ------ |
-| [RPi400][rpi400] | Raspberry Pi 400 Projects
 | [Administrating Packages][terminalAdminPackages] | How to install, run, update, and uninstall packages. |
 | [System OS, Hardware][terminalSys] | How to look up system OS info. |
 | [File system Operations][terminalFileOps] | How to use command line to operate file systems. |
 
-### _Remote Access_
-WIP
+### _Projects_
+| Link | Description |
+| ------ | ------ |
+| [RPi400][rpi400] | Raspberry Pi 400 Projects
 
 ### License
 ---
-omgitskuei/LinuxDev is licensed under the GNU General Public License v3.0.
+omgitskuei/RPiDev is licensed under the GNU General Public License v3.0.
 
 Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. 
 
 Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
 
+   [rpi400]: <https://github.com/omgitskuei/RPiDev/tree/main/RPi400>
    [terminalAdminPackages]: <https://github.com/omgitskuei/RPiDev/tree/main/terminal/administrating_packages>
    [terminalSys]: <https://github.com/omgitskuei/RPiDev/tree/main/terminal/system>
    [terminalFileOps]: <https://github.com/omgitskuei/RPiDev/tree/main/terminal/operating_file_system>
-   [rpi400]: <https://github.com/omgitskuei/RPiDev/tree/main/RPi400>
+   
    
