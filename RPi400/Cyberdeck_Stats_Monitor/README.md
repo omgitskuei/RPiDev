@@ -106,9 +106,20 @@ The cyberdeck_stats_monitor.py python script relies on os.popen() which **might*
 
 ## Versions
 ---
+Version 1 - first attempt at writing data onto the display. The two black lines divide the width and length into halves.
+
 ![v1](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v1.JPG?raw=false "Versions, V1")
+
+Version 2 - noticed that the placement of the CPU usage (a percentage) and the CPU temperature (in Celsius) are placed incorrected on the display in Version 1.
+
 ![v2](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v2.JPG?raw=false "Versions, V2")
+
+Version 3 - added timestamp and ip address.
+
 ![v3](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v3.JPG?raw=false "Versions, V3")
+
+Version 4 - noticed that running the script at reboot will return an empty string for ip address. Swapped their placements so that if there's no IP, it can return an empty string without changing the timestamp's placement. A thing to note is that the timestamp will also be 'wrong' when first run on reboot, returning time in UTC not localtime. There may not be any way to fix this unless systemd is used instead for the reboot's script run.
+
 ![v4](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v4_1.JPG?raw=false "Versions, V4")
 
 ## License
