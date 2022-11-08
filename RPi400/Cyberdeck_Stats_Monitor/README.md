@@ -64,8 +64,7 @@ The cyberdeck_stats_monitor.py python script relies on os.popen() which **might*
   <p>The python scripts clear.py and cyberdeck_stats_monitor.py rely a specific file structure to import Waveshare ePaper display's library and to read essential bmp files.
   The /library folder, /python, and /pic folders need to remain in the same relative file system position to each other.
   
-  ##### _Essentials files and folders_
-  Files not listed in this tree can be deleted without consequence to the project.
+  Files not listed in this tree *should* be fine to delete without consequence to the project to save space.
   
     .
     ├── /library
@@ -96,12 +95,11 @@ The cyberdeck_stats_monitor.py python script relies on os.popen() which **might*
 
 <details>
   <summary>Appendix C</summary>
-  <p>
-Waveshare's manual points out that clearing the display before storage is important. 
-  Under "Manual > Overview > Working Principle";
+  <p>Waveshare's manual points out that clearing the display before storage is important. Under "Manual > Overview > Working Principle";
 	  
 > charged nanoparticles suspended in a liquid migrate under the action of an electric field
-  Under "Manual > Resources > Datasheet > 2.13inch e-Paper Specification V3 (pdf) > 16. Precautions";
+
+Under "Manual > Resources > Datasheet > 2.13inch e-Paper Specification V3 (pdf) > 16. Precautions";
 	  
 > If the Module is not refreshed every 24 hours, a phenomena known as "Ghosting" or "Image Sticking" may occur. It is recommeded that customers store ... with a completely white image to avoid this issue. 
 	  
