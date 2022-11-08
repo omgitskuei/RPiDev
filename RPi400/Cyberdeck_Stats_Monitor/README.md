@@ -37,7 +37,7 @@ The cyberdeck_stats_monitor.py python script relies on os.popen() which **might*
 
 ![guidepic2](https:// "Guide, Step 2")
 
-3. Download the folder `Cyberdeck_Stats_Monitor`. Some contents served as reference material or original assets used for the creation of this project - these can be deleted to save space without affecting the project. :heavy_exclamation_mark: See Appendix A for details.
+3. Download the folder `Cyberdeck_Stats_Monitor`. Some contents served as reference material or original assets used for the creation of this project - these can be deleted to save space without affecting the project. :heavy_exclamation_mark: [See Appendix A for details][Apdx].
 
 ![guidepic3](https:// "Guide, Step 3")
 
@@ -49,11 +49,11 @@ The cyberdeck_stats_monitor.py python script relies on os.popen() which **might*
 
 ![guidepic5](https:// "Guide, Step 5")
 
-6. Add a crontab job to run the cyberdeck_stats_monitor.py script every 5 minutes. This interval can be modified to the user's liking. That said, Waveshare recommends refresh intervals between 3 minutes and 24 hours. :heavy_exclamation_mark: See Appendix B for details and other precautions.
+6. Add a crontab job to run the cyberdeck_stats_monitor.py script every 5 minutes. This interval can be modified to the user's liking. That said, Waveshare recommends refresh intervals between 3 minutes and 24 hours. :heavy_exclamation_mark: [See Appendix B for details and other precautions][Apdx].
 
 ![guidepic6](https:// "Guide, Step 6")
 
-7. Add a systemd unit file configured to run the clear.py script right before shutdown - requires Linux system to use systemd. For other OS, an equivalent to running the python script right before shutdown is needed. :heavy_exclamation_mark: See Appendix C for proper storage.
+7. Add a systemd unit file configured to run the clear.py script right before shutdown - requires Linux system to use systemd. For other OS, an equivalent to running the python script right before shutdown is needed. :heavy_exclamation_mark: [See Appendix C for proper storage][Apdx].
 
 ![guidepic7](https:// "Guide, Step 7")
 
@@ -114,4 +114,5 @@ Copyright and license notices must be preserved. Contributors provide an express
    [rp400link]: <https://www.raspberrypi.com/products/raspberry-pi-400-unit/>
    [WaveshareEPDlink]: <https://www.waveshare.com/wiki/2.13inch_e-Paper_HAT>
    [Bonnettlink]: <https://www.adafruit.com/product/4862>
-   
+
+   [Apdx]: <https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/README.md#appendix>
