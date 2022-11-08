@@ -19,39 +19,55 @@ The cyberdeck_stats_monitor.py python script relies on os.popen() which **might*
 
 ### _Guide_
 1. Get the necessary components ready.
+
 ![guidepic1](https:// "Guide, Step 1")
+
 2. Download some version of python 3.
+
 ![guidepic2](https:// "Guide, Step 2")
+
 3. Download the folder `Cyberdeck_Stats_Monitor`. Some contents served as reference material or original assets used for the creation of this project - these can be deleted to save space without affecting the project. :heavy_exclamation_mark: See Appendix A for details.
+
 ![guidepic3](https:// "Guide, Step 3")
+
 4. Add a crontab job to run the clear.py script on reboot (reboot startup as well as restart) - requires Linux system to use crontab. To get this step to work on Windows/Mac, an equivalent to crontab is needed.
+
 ![guidepic4](https:// "Guide, Step 4")
+
 5. Add a crontab job to run the cyberdeck_stats_monitor.py script immediately on startup. This is because a repeating crontab job does not run until its interval has elapsed at least once. Without doing this step, the display would not start until 5 minutes after startup.
+
 ![guidepic5](https:// "Guide, Step 5")
+
 6. Add a crontab job to run the cyberdeck_stats_monitor.py script every 5 minutes. This interval can be modified to the user's liking. That said, Waveshare recommends refresh intervals between 3 minutes and 24 hours. :heavy_exclamation_mark: See Appendix B for details and other precautions.
+
 ![guidepic6](https:// "Guide, Step 6")
+
 7. Add a systemd unit file configured to run the clear.py script right before shutdown - requires Linux system to use systemd. For other OS, an equivalent to running the python script right before shutdown is needed. :heavy_exclamation_mark: See Appendix C for proper storage.
+
 ![guidepic7](https:// "Guide, Step 7")
+
 
 #### _Appendix_
 <details>
   <summary>Appendix A</summary>
   <p>The python scripts clear.py and cyberdeck_stats_monitor.py rely a specific file structure to import Waveshare ePaper display's library and to read essential bmp files.
-  The /lib folder, /python, and /pic folders need to remain in the same relative file system position to each other.
+  The /library folder, /python, and /pic folders need to remain in the same relative file system position to each other.
   
   ##### _Essentials files and folders_
   Files not listed in this tree can be deleted without consequence to the project.
-  /Cyberdeck_Stats_Monitor
-  |-- /lib
-      |-- /waveshare_epd
-	      |-- epd2in13_V3.py
-  |-- /pic
-      |-- Font.ttc
-      |-- /bmps
-          |-- combined.bmp
-  |-- /python
-      |-- clear.py
-      |-- cyberdeck_stats_monitor.py
+  
+    .
+    ├── /library
+        ├── /waveshare_epd
+	        ├── epd2in13_V3.py
+    ├── /pic
+        ├── Font.ttc
+        ├── /bmps
+            ├── combined.bmp
+    ├── /python
+        ├── clear.py
+        ├── cyberdeck_stats_monitor.py
+  
   </p>
 </details>
 

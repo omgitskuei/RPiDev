@@ -13,7 +13,7 @@ from datetime import datetime
 logging.basicConfig(level=logging.DEBUG)
 
 # import necessary waveshare_epd library
-libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
+libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'library')
 logging.info("Retrieving python library for driving Waveshare 2.13in ePaper HAT...")
 if os.path.exists(libdir):
     sys.path.append(libdir)
