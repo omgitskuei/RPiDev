@@ -20,7 +20,7 @@ The cyberdeck_stats_monitor.py python script relies on os.popen() which **might*
 ### _Guide_
 1. Get the necessary components ready.
 
-![guidepic1](https:// "Guide, Step 1")
+![guidepic1](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic1.JPG?raw=false "Guide, Step 1")
 
 2. Download some version of python 3.
 
