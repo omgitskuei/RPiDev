@@ -10,6 +10,7 @@ This Raspberry Pi 400 project displays ...
 - CPU temperature, 
 - machine ip address, 
 - and timestamp 
+
 ... on a Waveshare ePaper (250 x 122 pixels, 2.13 inch EPD HAT for Raspberry Pi, Black/White, RPI SPI interface) connected to a Adafruit Cyberdeck Bonnett (which then connects to the Raspberry Pi 400's GPIO).
 The scripts clear.py (clears the display) and cyberdeck_stats_monitor.py (gets and writes data onto the display) are written in python.
 
