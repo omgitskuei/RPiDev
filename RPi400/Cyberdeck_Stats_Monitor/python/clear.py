@@ -9,8 +9,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 # import necessary waveshare_epd library
 logging.info("Retrieving python library for driving Waveshare 2.13in ePaper HAT...")
-libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
-# libdir is "[...]/RPiDev/RPi400/Cyberdeck_Stats_Monitor/lib"
+libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'library')
 if os.path.exists(libdir):
     sys.path.append(libdir)
     logging.info("Done.")
