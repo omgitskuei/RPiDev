@@ -83,26 +83,28 @@ The cyberdeck_stats_monitor.py python script relies on os.popen() which **might*
 
 <details>
   <summary>Appendix B</summary>
-  <p>Waveshare's manual cautions users of the ePaper display that keeping the display powered on for long durations will cause irreparable damage - after updating is complete, the display should be powered off or set to sleep mode. Running the cyberdeck_stats_monitor.py performs the update followed by immediately setting the screen to sleep.
-  Waveshare recommends a refresh interval range between 3 mins minimum and 24 hours maximum and that the screen be cleared before storing.
+  <p>Waveshare's manual cautions users of the ePaper display that keeping the display powered on for long durations will cause irreparable damage - after updating is complete, the display should be powered off or set to sleep mode. Running the cyberdeck_stats_monitor.py performs the update followed by immediately setting the screen to sleep. Waveshare recommends a refresh interval range between 3 mins minimum and 24 hours maximum and that the screen be cleared before storing.
   Note: this discussion of intervals is for Refreshes, not Partial Refreshes.
-  Refresh uses `epd.display(epd.getbuffer(image))` while Partial Refresh uses `epd.displayPartBaseImage(epd.getbuffer(image))` to display static background, then `epd.displayPartial(epd.getbuffer(image))` to dynamically display the difference. |
-  To demonstrate partial refresh, the demo python script provided by Waveshare iterated through a while-loop every 1 second to update a timestamp. Sleep `epd.sleep()` was not called before the next interval started - this means the display would be constantly powered on despite Waveshare's own warnings against constantly powering on the display. While the manual did not explicitly say that partial refreshing without sleep over a long time would (or would not) cause damage, it did say that partial refreshing should only be done "several" times before a full refresh. Exactly how many is several wasn't stated.
+
+  Refresh uses `epd.display(epd.getbuffer(image))` while Partial Refresh uses `epd.displayPartBaseImage(epd.getbuffer(image))` to display static background, then `epd.displayPartial(epd.getbuffer(image))` to dynamically display the difference. To demonstrate partial refresh, the demo python script provided by Waveshare iterated through a while-loop every 1 second to update a timestamp. Sleep `epd.sleep()` was not called before the next interval started - this means the display would be constantly powered on despite Waveshare's own warnings against constantly powering on the display. While the manual did not explicitly say that partial refreshing without sleep over a long time would (or would not) cause damage, it did say that partial refreshing should only be done "several" times before a full refresh. Exactly how many is several wasn't stated.
+
   From 10 repeated testings of the display with the demo, the demo provided's one-second interval partial refresh did not provide good consistent results. Sometimes the interval would be a second, other times slightly shorter or longer, depending on the execution speed of the software. Adding a 3 second delay between intervals also did not provide consistent results.
+
   For this project, considering the vague guidelines on partial refreshing and its mixed results from the demo, in order to preserve the service life of the ePaper display, it was decided that no partial refresh would be used.
+
   </p>
 </details>
 
 <details>
   <summary>Appendix C</summary>
   <p>Waveshare's manual points out that clearing the display before storage is important. Under "Manual > Overview > Working Principle";
-	  
+
 > charged nanoparticles suspended in a liquid migrate under the action of an electric field
 
 Under "Manual > Resources > Datasheet > 2.13inch e-Paper Specification V3 (pdf) > 16. Precautions";
-	  
+
 > If the Module is not refreshed every 24 hours, a phenomena known as "Ghosting" or "Image Sticking" may occur. It is recommeded that customers store ... with a completely white image to avoid this issue. 
-	  
+
   </p>
 </details>
 
