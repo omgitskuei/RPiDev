@@ -98,9 +98,9 @@ The cyberdeck_stats_monitor.py python script relies on os.popen() which **might*
   <summary>Appendix C</summary>
   <p>Waveshare's manual points out that clearing the display before storage is important. 
   Under "Manual > Overview > Working Principle";
-  > "... charged nanoparticles suspended in a liquid migrate under the action of an electric field"
+> charged nanoparticles suspended in a liquid migrate under the action of an electric field
   Under "Manual > Resources > Datasheet > 2.13inch e-Paper Specification V3 (pdf) > 16. Precautions";
-  > ... "If the Module is not refreshed every 24 hours, a phenomena known as "Ghosting" or "Image Sticking" may occur. It is recommeded that customers store ... with a completely white image to avoid this issue. 
+> If the Module is not refreshed every 24 hours, a phenomena known as "Ghosting" or "Image Sticking" may occur. It is recommeded that customers store ... with a completely white image to avoid this issue. 
   </p>
 </details>
 
