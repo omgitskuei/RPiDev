@@ -33,6 +33,10 @@ try:
     image = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame    
     draw = ImageDraw.Draw(image)
     
+    # For debugging purposes, draw two lines splitting the display into quads
+        # draw.line([(0, (displayHeight/2)), (displayWidth, (displayHeight/2))], fill = 0,width = 1) # draw horizontal line spliting screen halfway down
+        # draw.line([((displayWidth/2), 0),((displayWidth/2),122)], fill = 0,width = 1) # draw vertical line spliting screen down middle
+    
 #     draw.rectangle([(0,0),(50,50)],outline = 0)
     # Draw a black rectangle along the bottom half of the screen
     draw.rectangle([(0,61),(250,122)],fill = 0)
