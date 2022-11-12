@@ -56,15 +56,30 @@ This project has not been tested with other Waveshare ePaper displays - though c
 ![guidepic4](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic4.png?raw=false "Guide, Step 4")
 
 
-5. Add a systemd unit file configured to run the clear.py script right before shutdown - requires Linux system to use systemd. For other OS, an equivalent to running the python script right before shutdown is needed. :heavy_exclamation_mark: [See Appendix C for proper storage][Apdx].
-Start the Linux terminal emulator and input ```sudo cp /home/[yourUsername]/[whereYouStoredTheCyberdeck_Stats_MonitorFolder]/Cyberdeck_Stats_Monitor/cyberdeck_stats_monitor_systemd_unit.service /etc/systemd/system```. Ignore the ```scrot``` commands - they're for taking this screenshot.
+5. Add the systemd unit file ```cyberdeck_stats_monitor_systemd_unit.service``` configured to run the clear.py script right before shutdown - requires Linux system to use systemd. For other OS, an equivalent to running the pythothe script right before shutdown is needed. :heavy_exclamation_mark: [See Appendix C for proper storage][Apdx]. Start the Linux terminal emulator and input ```sudo cp [...]/Cyberdeck_Stats_Monitor/cyberdeck_stats_monitor_systemd_unit.service.
+/etc/systemd/system```. Ignore the ```scrot``` commands - they're for taking this screenshot.
 
 ![guidepic5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic5_1.png?raw=false "Guide, Step 5")
 
 
-6. Try running the ```cyberdeck_stats_monitor.py``` script. You should see something similar to the image below.
+6. Refresh the systemd configuration files with ```sudo systemctl daemon-reload```.
 
-![guidepic6](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic6.JPG?raw=false "Guide, Step 6")
+
+7. Enable the ```cyberdeck_stats_monitor_systemd_unit.service``` in ```/etc/systemd/system``` so that it runs at the next boot. 
+Open the Linux terminal emulator and Input ```systemctl enable cyberdeck_stats_monitor_systemd_unit```.
+
+![guidepic6](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic7.png?raw=false "Guide, Step 7")
+
+
+8. Try running the ```cyberdeck_stats_monitor.py``` script. You should see something similar to the image below. At this point, the display should update itself with current stats every 5 minutes.
+
+![guidepic6](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic8.JPG?raw=false "Guide, Step 8")
+
+
+
+
+
+
 
 #### _Appendix_
 <details>
@@ -85,7 +100,7 @@ Start the Linux terminal emulator and input ```sudo cp /home/[yourUsername]/[whe
     ├── /python
         ├── clear.py
         ├── cyberdeck_stats_monitor.py
-  
+    ├── cyberdeck_stats_monitor_systemd_unit.service
   </p>
 </details>
 
