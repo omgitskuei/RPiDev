@@ -59,7 +59,7 @@ This project has not been tested with other Waveshare ePaper displays - though c
 5. Add a systemd unit file configured to run the clear.py script right before shutdown - requires Linux system to use systemd. For other OS, an equivalent to running the python script right before shutdown is needed. :heavy_exclamation_mark: [See Appendix C for proper storage][Apdx].
 Start the Linux terminal emulator and input ```sudo cp /home/[yourUsername]/[whereYouStoredTheCyberdeck_Stats_MonitorFolder]/Cyberdeck_Stats_Monitor/cyberdeck_stats_monitor_systemd_unit.service /etc/systemd/system```. Ignore the ```scrot``` commands - they're for taking this screenshot.
 
-![guidepic5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic5.png?raw=false "Guide, Step 5")
+![guidepic5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic5_1.png?raw=false "Guide, Step 5")
 
 
 6. Try running the ```cyberdeck_stats_monitor.py``` script. You should see something similar to the image below.
