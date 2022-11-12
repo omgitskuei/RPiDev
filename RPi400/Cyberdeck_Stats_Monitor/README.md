@@ -14,10 +14,13 @@ This Raspberry Pi 400 project displays ...
 ... on a Waveshare ePaper (250 x 122 pixels, 2.13 inch EPD HAT for Raspberry Pi, Black/White, RPI SPI interface) connected to a Adafruit Cyberdeck Bonnett (which then connects to the Raspberry Pi 400's GPIO).
 The scripts clear.py (clears the display) and cyberdeck_stats_monitor.py (gets and writes data onto the display) are written in python.
 
+
 ## Limitations
 ---
 This project has not been tested on other Raspberry Pi models besides Raspberry Pi 400, but if the OS is Raspberry Pi OS (Bullseye) then it should work.
-The cyberdeck_stats_monitor.py python script relies on os.popen() which **might** make it compatible with Linux systems only.  
+The cyberdeck_stats_monitor.py python script relies on os.popen() which **might** make it compatible with Linux systems only.
+This project has not been tested with other Waveshare ePaper displays - though changing the library for the correct corresponding one should enable them to work.
+
 
 ## Tutorial
 ---
@@ -33,32 +36,29 @@ The cyberdeck_stats_monitor.py python script relies on os.popen() which **might*
 
 ![guidepic1](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic1.JPG?raw=false "Guide, Step 1")
 
-2. Download some version of python 3 and install it on your system. Raspberry Pi 400 with Raspberry Pi OS (Bullseye) can skip this step as Python 3 is already installed.
+
+2. Download some version of python 3 and install it on your system. Raspberry Pi 400 with Raspberry Pi OS (Bullseye) can skip this step as Python 3 is already installed. Make sure to also download the python library for operating the ePaper. You can get this library from Waveshare's github repository at [Waveshare Epaper repo][ePaperRepo] or find it included in ```/RPiDev/RPi400/Cyberdeck_Stats_Monitor/library```.
 
 ![guidepic2](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic2.JPG?raw=false "Guide, Step 2")
 
-3. Download the folder `Cyberdeck_Stats_Monitor`. Some contents served as reference material or original assets used for the creation of this project - these can be deleted to save space without affecting the project. :heavy_exclamation_mark: [See Appendix A for details][Apdx].
+
+3. Download the RPiDev repository to get the folder `Cyberdeck_Stats_Monitor`. The file structure of the folder `Cyberdeck_Stats_Monitor` must remain unchanged but some of it contents served as reference material or older versions of assets used for this project - these can be deleted to save space without affecting the project. :heavy_exclamation_mark: [See Appendix A for details][Apdx].
 
 ![guidepic3](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic3.JPG?raw=false "Guide, Step 3")
 
-4. Add a crontab job to run the clear.py script on reboot (reboot startup as well as restart) - requires Linux system to use crontab. To get this step to work on Windows/Mac, an equivalent to crontab is needed.
 
-Start the Linux terminal emulator.
-Input ```cronntab -e```
+4. Add a crontab job to run the ```clear.py``` script on reboot (reboot startup as well as restart) - requires Linux system to use crontab. To get this step to work on Windows/Mac, an equivalent to the crontab program is needed. 
+Then, add a crontab job to run the ```cyberdeck_stats_monitor.py``` script immediately on startup. This is because a repeating crontab job does not run until its interval has elapsed at least once. Without doing this step, the display would not start until 5 minutes after startup.
+Lastly, add a crontab job to run the cyberdeck_stats_monitor.py script every 5 minutes. This interval can be modified to the user's liking. That said, Waveshare recommends refresh intervals between 3 minutes and 24 hours. :heavy_exclamation_mark: [See Appendix B for details and other precautions][Apdx]. If you want to execute the ```cyberdeck_stats_monitor.py``` script just once, the 'meat' of cyberdeck_stats_monitor.py needs to be wrapped in a loop so it stays running after executing it once - if you're doing this, pay attention to the Appendix B on how to implement ePaper. 
+Start the Linux terminal emulator and input ```crontab -e``` to start up crontab and add/remove jobs. You'll see something like this picture. Add the missing white text.
 
 ![guidepic4](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic4.JPG?raw=false "Guide, Step 4")
 
-5. Add a crontab job to run the cyberdeck_stats_monitor.py script immediately on startup. This is because a repeating crontab job does not run until its interval has elapsed at least once. Without doing this step, the display would not start until 5 minutes after startup.
+
+5. Add a systemd unit file configured to run the clear.py script right before shutdown - requires Linux system to use systemd. For other OS, an equivalent to running the python script right before shutdown is needed. :heavy_exclamation_mark: [See Appendix C for proper storage][Apdx].
+Start the Linux terminal emulator and input ```??????```.
 
 ![guidepic5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic5.JPG?raw=false "Guide, Step 5")
-
-6. Add a crontab job to run the cyberdeck_stats_monitor.py script every 5 minutes. This interval can be modified to the user's liking. That said, Waveshare recommends refresh intervals between 3 minutes and 24 hours. :heavy_exclamation_mark: [See Appendix B for details and other precautions][Apdx].
-
-![guidepic6](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic6.JPG?raw=false "Guide, Step 6")
-
-7. Add a systemd unit file configured to run the clear.py script right before shutdown - requires Linux system to use systemd. For other OS, an equivalent to running the python script right before shutdown is needed. :heavy_exclamation_mark: [See Appendix C for proper storage][Apdx].
-
-![guidepic7](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic7.JPG?raw=false "Guide, Step 7")
 
 
 #### _Appendix_
@@ -111,6 +111,7 @@ Under "Manual > Resources > Datasheet > 2.13inch e-Paper Specification V3 (pdf) 
   </p>
 </details>
 
+
 ## Versions
 ---
 Version 1 - first attempt at writing data onto the display. The two black lines divide the width and length into halves.
@@ -129,6 +130,13 @@ Version 4 - noticed that running the script at reboot will return an empty strin
 
 ![v4](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v4_1.JPG?raw=false "Versions, V4")
 
+
+## Expansions
+- Consider designing and 3D-printing a case around the ePaper display + Bonnet.
+- Consider adding a 'page 2' with 4 other stats (like Uptime, battery charge (if it had a battery), weather forecast) that alternates getting run
+- The Bonnet actually has 2 STEMMA connections (3 pins) and STEMMA QT connections. Perhaps I could add speakers to the Raspberry Pi 400.
+
+
 ## License
 ---
 omgitskuei/RPiDev is licensed under the GNU General Public License v3.0.
@@ -140,5 +148,6 @@ Copyright and license notices must be preserved. Contributors provide an express
    [rp400link]: <https://www.raspberrypi.com/products/raspberry-pi-400-unit/>
    [WaveshareEPDlink]: <https://www.waveshare.com/wiki/2.13inch_e-Paper_HAT>
    [Bonnettlink]: <https://www.adafruit.com/product/4862>
+   [ePaperRepo]: <https://github.com/waveshare/e-Paper/tree/master/RaspberryPi_JetsonNano/python>
 
    [Apdx]: <https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/README.md#appendix>
