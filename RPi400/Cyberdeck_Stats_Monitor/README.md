@@ -58,6 +58,7 @@ This project has not been tested with other Waveshare ePaper displays - though c
 
 5. Add the systemd unit file ```cyberdeck_stats_monitor_systemd_unit.service``` configured to run the clear.py script right before shutdown - requires Linux system to use systemd. For other OS, an equivalent to running the pythothe script right before shutdown is needed. :heavy_exclamation_mark: [See Appendix C for proper storage][Apdx]. Start the Linux terminal emulator and input ```sudo cp [...]/Cyberdeck_Stats_Monitor/cyberdeck_stats_monitor_systemd_unit.service.
 /etc/systemd/system```. Ignore the ```scrot``` commands - they're for taking this screenshot.
+:heavy_exclamation_mark: The .service file shown in the screenshot is missing the [Install] config - see the file's contents [here][serviceFile] for the missing [Install] config.
 
 ![guidepic5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic5_1.png?raw=false "Guide, Step 5")
 
@@ -171,5 +172,5 @@ Copyright and license notices must be preserved. Contributors provide an express
    [WaveshareEPDlink]: <https://www.waveshare.com/wiki/2.13inch_e-Paper_HAT>
    [Bonnettlink]: <https://www.adafruit.com/product/4862>
    [ePaperRepo]: <https://github.com/waveshare/e-Paper/tree/master/RaspberryPi_JetsonNano/python>
-
+   [serviceFile]: <https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/cyberdeck_stats_monitor_systemd_unit.service>
    [Apdx]: <https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/README.md#appendix>
