@@ -130,7 +130,9 @@ Version 3 - added timestamp and ip address.
 
 ![v3](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v3.JPG?raw=false "Versions, V3")
 
-Version 4 - noticed that running the script at reboot will return an empty string for ip address. Swapped their placements so that if there's no IP, it can return an empty string without changing the timestamp's placement. A thing to note is that the timestamp will also be 'wrong' when first run on reboot, returning time in UTC not localtime. There may not be any way to fix this unless systemd is used instead for the reboot's script run.
+Version 4 - noticed that running the script at reboot will return an empty string for ip address - the display would show (eg.) ```| 2022-01-13 10:55```. Swapped their placements so that if there's no IP, it can return an empty string without changing the timestamp's placement and also not print an unnecessary "|". 
+
+A thing to note is that the timestamp might also be 'wrong' when first run on reboot, returning time in UTC not localtime. This is caused by the cronjob @reboot running too early before the OS has fetched localtime. There may not be any way to fix this unless systemd is used instead for the reboot's script run because systemd can specify the order in which the script is run.
 
 ![v4](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v4_1.JPG?raw=false "Versions, V4")
 
