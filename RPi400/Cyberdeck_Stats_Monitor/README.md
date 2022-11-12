@@ -52,7 +52,7 @@ Then, add a crontab job to run the ```cyberdeck_stats_monitor.py``` script immed
 Lastly, add a crontab job to run the cyberdeck_stats_monitor.py script every 5 minutes. This interval can be modified to the user's liking. That said, Waveshare recommends refresh intervals between 3 minutes and 24 hours. :heavy_exclamation_mark: [See Appendix B for details and other precautions][Apdx]. If you want to execute the ```cyberdeck_stats_monitor.py``` script just once, the 'meat' of cyberdeck_stats_monitor.py needs to be wrapped in a loop so it stays running after executing it once - if you're doing this, pay attention to the Appendix B on how to implement ePaper. 
 Start the Linux terminal emulator and input ```crontab -e``` to start up crontab and add/remove jobs. You'll see something like this picture. Add the missing white text.
 
-![guidepic4](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic4.JPG?raw=false "Guide, Step 4")
+![guidepic4](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic4.png?raw=false "Guide, Step 4")
 
 
 5. Add a systemd unit file configured to run the clear.py script right before shutdown - requires Linux system to use systemd. For other OS, an equivalent to running the python script right before shutdown is needed. :heavy_exclamation_mark: [See Appendix C for proper storage][Apdx].
@@ -60,6 +60,10 @@ Start the Linux terminal emulator and input ```??????```.
 
 ![guidepic5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic5.JPG?raw=false "Guide, Step 5")
 
+
+6. Try running the ```cyberdeck_stats_monitor.py``` script. You should see something similar to the image below.
+
+![guidepic6](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic6.JPG?raw=false "Guide, Step 6")
 
 #### _Appendix_
 <details>
