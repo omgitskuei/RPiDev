@@ -12,3 +12,5 @@ ExecStart=/home/kfctr400/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/python
 ExecReload=cd
 RemainAfterExit=no
  
+[Install]
+WantedBy=shutdown.target
