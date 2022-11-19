@@ -30,3 +30,6 @@ except IOError:
 print(config.sections())
 if 'Waveshare,ePaper,2.13in' in config:
     print(config['Waveshare,ePaper,2.13in']['DisplayWidth'])
+
+if config['DEFAULT']['enable'] == 'true':
+    print('is enabled')

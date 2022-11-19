@@ -8,6 +8,7 @@ import gpiozero
 import decimal
 from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
+import configparser
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -57,6 +58,28 @@ def round_down_to_one_decimal(a_float):
 
 # main...
 def main():
+    config = configparser.ConfigParser()
+    ini_path = '../cyberdeck_stats_monitor_config.ini'
+    try:
+        with open(ini_path) as ini:
+            logging.info("Successfully opened ini file")
+            config.read_file(ini)
+    except IOError:
+        # ini file doesn't exist, so create ini file.
+        logging.info("Failed to open ini file, Creating ini file")
+        config['DEFAULT'] = {'version': '5',
+                             'tempunit': 'c',
+                             'enable': 'true'}
+        config['Waveshare,ePaper,2.13in'] = {'displaywidth': '250',
+                                             'displayheight': '122',
+                                             'minimumrefresh': '3_mins'}
+        with open(ini_path, 'w') as ini:
+            config.write(ini)
+        config.read(ini_path)
+
+    if config['DEFAULT']['enable'] == 'false':
+        exit()
+
     try:
         # init display
         logging.info("Initializing ePaper display...")
@@ -67,7 +90,11 @@ def main():
 
         # get data
         logging.info("Getting CPU temperature...")
-        cpu_temp = '{}°C'.format(get_gpu_temp_via_os())
+        if config['DEFAULT']['tempunit'] == 'c':
+            cpu_temp = '{}°C'.format(get_gpu_temp_via_os())
+        elif config['DEFAULT']['tempunit'] == 'f':
+            fahrenheit = (float(get_gpu_temp_via_os()) * 1.8) + 32
+            cpu_temp = '{}°F'.format(fahrenheit)
         logging.info(cpu_temp)
         logging.info("Done.")
 

@@ -12,5 +12,7 @@ def getCPUTemp_os():
 
 
 # main...
+print(type(getCPUTemp_gpio()))
 print(getCPUTemp_gpio())
+print(type(getCPUTemp_os()))
 print(getCPUTemp_os())
