@@ -69,7 +69,7 @@ This project has not been tested with other Waveshare ePaper displays - though c
 7. Enable the ```cyberdeck_stats_monitor_systemd_unit.service``` in ```/etc/systemd/system``` so that it runs at the next boot. 
 Open the Linux terminal emulator and Input ```systemctl enable cyberdeck_stats_monitor_systemd_unit```.
 
-![guidepic6](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic7_1.png?raw=false "Guide, Step 7")
+![guidepic7](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic7_1.png?raw=false "Guide, Step 7")
 
 
 8. Try running the ```cyberdeck_stats_monitor.py``` script. You should see something similar to the image below. At this point, the display should update itself with current stats every 5 minutes.
