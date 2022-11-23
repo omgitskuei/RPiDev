@@ -52,6 +52,8 @@ This project has not been tested with other Waveshare ePaper displays - though c
 - Then, add a crontab job to run the ```cyberdeck_stats_monitor.py``` script immediately on startup. This is because a repeating crontab job does not run until its interval has elapsed at least once. Without doing this step, the display would not start until 5 minutes after startup.
 - Lastly, add a crontab job to run the cyberdeck_stats_monitor.py script every 5 minutes. This interval can be modified to the user's liking. That said, Waveshare recommends refresh intervals between 3 minutes and 24 hours. :heavy_exclamation_mark: [See Appendix B for details and other precautions][Apdx]. If you want to execute the ```cyberdeck_stats_monitor.py``` script just once, the 'meat' of cyberdeck_stats_monitor.py needs to be wrapped in a loop so it stays running after executing it once - if you're doing this, pay attention to the Appendix B on how to implement ePaper. 
 
+```@reboot /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/python/clear.py > /home/yourUser/Documents/logs/cyberdeck_reboot_clear.log 2>&1```
+For easy debugging, I recommend adding a command to explicitly send the job's output to a log file by adding ```> [path] [STDOUT, STDERR, both]``` to the end of each job. The ```2>&1``` means writing both writing job output and job errors to the same log file. Note, you can use ```>>``` if you want to append contents to the log files instead of overwrite the log files.
 
 ![guidepic4](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic4.png?raw=false "Guide, Step 4")
 
