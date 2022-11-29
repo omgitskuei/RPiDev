@@ -138,7 +138,7 @@ For easy debugging, I recommend adding the command to explicitly send the job's 
 <details>
   <summary>Step 5 - Use systemd to run clear.py script before shutdown</summary>
   <p>
-Add the systemd unit file ```cyberdeck_stats_monitor_systemd_unit.service``` configured to run the clear.py script right before shutdown - requires Linux system to use systemd.
+Add the systemd unit file cyberdeck_stats_monitor_systemd_unit.service configured to run the clear.py script right before shutdown - requires Linux system to use systemd.
 
 For other OS, you need an alternative to systemd to run the clear.py before shutdown. 
 
@@ -166,8 +166,8 @@ sudo systemctl daemon-reload
 
 
 <details>
-  <summary>Step 6 - Enable the ```cyberdeck_stats_monitor_systemd_unit.service``` in ```/etc/systemd/system``` so that it runs at the next boot</summary>
-  <p>Open the Linux terminal emulator and input ```systemctl enable cyberdeck_stats_monitor_systemd_unit```.
+  <summary>Step 6 - Enable the cyberdeck_stats_monitor_systemd_unit.service in /etc/systemd/system so that it runs at the next boot</summary>
+  <p>Open the Linux terminal emulator and input systemctl enable cyberdeck_stats_monitor_systemd_unit.
 
 ![guidepic7](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic7_1.png?raw=false "Guide, Step 7")
   </p>
