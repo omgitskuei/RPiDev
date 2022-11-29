@@ -146,7 +146,7 @@ For other OS, you need an alternative to systemd to run the clear.py before shut
 		
 Start the Linux terminal emulator and input 
 
-```
+```Linux Kernel Module
 sudo cp [wherever you saved this folder]/Cyberdeck_Stats_Monitor/cyberdeck_stats_monitor_systemd_unit.service. /etc/systemd/system
 ```
 
@@ -158,7 +158,7 @@ Ignore the ```scrot``` commands - they're for taking this screenshot.
 
 Refresh the systemd configuration files by entering this command into terminal.
 
-```
+```Linux Kernel Module
 sudo systemctl daemon-reload
 ```
   </p>
@@ -175,10 +175,25 @@ sudo systemctl daemon-reload
 
 
 <details>
-  <summary>Step 7 - Try running the scripts </summary>
-  <p>Try running the ```update.py``` script. You should see something similar to the image below. At this point, the display should update itself with current stats every 5 minutes.
+  <summary>Step 7 - Try running the scripts through terminal</summary>
+  <p>Try running the update.py script throught terminal with cd and python3.
+
+```Linux Kernel Module
+cd omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/python
+python3 update.py
+```
+
+You should see something similar to the image below.
 
 ![guidepic6](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic8.JPG?raw=false "Guide, Step 8")
+
+If this failed, its likely because the SPI Interface is currently disabled. Use raspi-config to enable the SPI Interface.
+
+```Linux Kernel Module
+sudo raspi-config
+```
+
+This will open the Raspberry Pi Configuration application. Choose Interfacing Options -> SPI -> Yes Enable SPI interface.
   </p>
 </details>
 
