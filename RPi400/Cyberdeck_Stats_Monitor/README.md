@@ -45,6 +45,7 @@ The scripts clear.py (clears the display) and update.py (gets and writes data on
 | Waveshare ePaper 2.13 inch Black/White display HAT | Note there's multiple two-colored 2.13" ePaper displays from Waveshare - the component used here does not have the "(B)", "(C)", or "(D)" in its name. | [Waveshare ePaper 2.13" HAT][WaveshareEPDlink] | Necessary |
 | Adafruit Cyberdeck Bonnett | It's a plug-and-play HAT attached to the GPIO pins. For the Raspberry Pi 400, it attaches at a slant with the HAT's pins facing the user. It's called a 'bonnett' because it's about half the size of a regular HAT. | [Adafruit Cyberdeck Bonnett][Bonnettlink] | Necessary |
 
+
 ### _Instructions_
 
 <details>
@@ -198,8 +199,8 @@ This will open the Raspberry Pi Configuration application. Choose Interfacing Op
 </details>
 
 
-#### _Appendix_
----
+### _Appendix_
+
 <details>
   <summary>Appendix A</summary>
   <p>The python scripts clear.py and update.py rely a specific file structure to import Waveshare ePaper display's library and to read essential bmp files.
@@ -250,7 +251,6 @@ Under "Manual > Resources > Datasheet > 2.13inch e-Paper Specification V3 (pdf) 
 </details>
 
 
-
 ## Change Logs
 
 Version 1 - first attempt at writing data onto the display. The two black lines divide the width and length into halves.
@@ -267,9 +267,6 @@ Version 4 - noticed that running the script at reboot will return an empty strin
 
 Version 5 - added configparser to read ini file - the ini file can modify the display to show Farenheit instead of Celsius (default) and can also disable the display being refreshed. Noticed this version breaks the cron job due to Permission Denied when trying to read the ini file.
 ![v5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v5.JPG?raw=false "Versions, V5")
-
-
-
 
 
 ## License
