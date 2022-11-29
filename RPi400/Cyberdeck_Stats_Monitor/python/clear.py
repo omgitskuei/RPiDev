@@ -21,7 +21,8 @@ from waveshare_epd import epd2in13_V3
 
 # read/create ini
 config = configparser.ConfigParser()
-ini_path = '../cyberdeck_stats_monitor_config.ini'
+ini_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__))) + '/cyberdeck_stats_monitor_config.ini'
+logging.info("ini_path={}".format(ini_path))
 try:
     with open(ini_path) as ini:
         logging.info("Successfully opened ini file")

@@ -1,0 +1,11 @@
+[Unit] 
+Description=Runs the update.py script every 4 minutes after boot up
+Documentation=https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/
+
+[Timer] 
+OnBootSec=0 m
+OnCalendar=*:0/4
+Unit=cyberdeck_repeat4m_update.service 
+
+[Install] 
+WantedBy=graphical.target

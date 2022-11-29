@@ -29,11 +29,12 @@ logging.info("Done.")
 
 # read/create config ini file
 config = configparser.ConfigParser()
-ini_path = '../cyberdeck_stats_monitor_config.ini'
+ini_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__))) + '/cyberdeck_stats_monitor_config.ini'
+logging.info("ini_path={}".format(ini_path))
 try:
     with open(ini_path) as ini:
-        logging.info("Successfully opened ini file")
         config.read_file(ini)
+        logging.info("Successfully opened ini file")
 except IOError:
     # ini file doesn't exist, so create ini file.
     logging.info("Failed to open ini file, Creating ini file")
@@ -124,6 +125,10 @@ def get_ip(raw_data_map):
     logging.info("Getting IP address...")
     # NOTE: ends with a SPACE and an ENTER, need to remove last 2 chars
     ip = raw_data_map['ip'][0:-2]
+    try:
+        ip = ip[0:ip.index(' ')]
+    except ValueError as ve:
+        pass
     logging.info(ip)
     logging.info("Done.")
     return ip
@@ -167,11 +172,11 @@ def main():
                   font=font24,
                   fill=0)
         # middle row - RAM usage %, Disk used %
-        draw.text((left_padding, 45 + top_padding),
+        draw.text((left_padding, 43 + top_padding),
                   get_ram_used(raw_data_map),
                   font=font24,
                   fill=0)
-        draw.text((120 + left_padding, 45 + top_padding),
+        draw.text((120 + left_padding, 43 + top_padding),
                   get_disk_used(raw_data_map),
                   font=font24,
                   fill=0)

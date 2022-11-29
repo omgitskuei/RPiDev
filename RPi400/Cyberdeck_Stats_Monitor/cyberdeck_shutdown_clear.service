@@ -1,5 +1,6 @@
 [Unit]
 Description=On shutdown, clear ePaper display to reset state
+Documentation=https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/
 DefaultDependencies=no
 After=cron.service
 Conflicts=reboot.target
