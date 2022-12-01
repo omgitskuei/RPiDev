@@ -269,6 +269,7 @@ Version 4 - noticed that running the script at reboot will return an empty strin
 Version 5 - added configparser to read ini file - the ini file can modify the display to show Farenheit instead of Celsius (default) and can also disable the display being refreshed. Noticed this version breaks the cron job due to Permission Denied when trying to read the ini file.
 ![v5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v5.JPG?raw=false "Versions, V5")
 
+Version 6 - replaced cron jobs with systemd instead, debugged Permission denied when trying to read ini file, debugged systemd unit file shutdown service causing shutdown to hang when display is not plugged in by removing unit "Requires=".
 
 ## License
 
