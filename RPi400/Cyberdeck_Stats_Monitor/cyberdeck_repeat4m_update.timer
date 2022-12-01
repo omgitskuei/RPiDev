@@ -1,11 +1,14 @@
 [Unit] 
 Description=Runs the update.py script every 4 minutes after boot up
 Documentation=https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/
+Wants=network-online.target
 
 [Timer] 
 OnBootSec=0 m
 OnCalendar=*:0/4
-Unit=cyberdeck_repeat4m_update.service 
+Unit=cyberdeck_repeat4m_update.service
+StandardOutput=file:/home/kfctr400/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/logs/cyberdeck_repeat4m_update_timer_stdout.log
+StandardError=file:/home/kfctr400/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/logs/cyberdeck_repeat4m_update_timer_stderr.log
 
 [Install] 
 WantedBy=graphical.target
