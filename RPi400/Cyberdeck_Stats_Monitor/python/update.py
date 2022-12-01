@@ -13,31 +13,31 @@ import traceback
 
 logging.basicConfig(level=logging.DEBUG)
 
-logging.info("Getting path for ../library containing ePaper HAT display module")
+logging.info('Getting path for ../library containing ePaper HAT display module')
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
                       'library')
 if os.path.exists(libdir):
     sys.path.append(libdir)
 from waveshare_epd import epd2in13_V3
-logging.info("Done.")
+logging.info('Done.')
 
-logging.info("Get path for /pic... containing bmp files, fonts, photos")
+logging.info('Get path for /pic... containing bmp files, fonts, photos')
 picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
                       'pic')
-logging.info("Done.")
+logging.info('Done.')
 
 
 # read/create config ini file
 config = configparser.ConfigParser()
 ini_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__))) + '/cyberdeck_stats_monitor_config.ini'
-logging.info("ini_path={}".format(ini_path))
+logging.info('ini_path={}'.format(ini_path))
 try:
     with open(ini_path) as ini:
         config.read_file(ini)
-        logging.info("Successfully opened ini file")
+        logging.info('Successfully opened ini file')
 except IOError:
     # ini file doesn't exist, so create ini file.
-    logging.info("Failed to open ini file, Creating ini file")
+    logging.info('Failed to open ini file, Creating ini file')
     config['DEFAULT'] = {'version': '5',
                          'tempunit': 'c',
                          'enable': 'true'}
@@ -49,6 +49,7 @@ except IOError:
         config.read(ini_path)
 
 if config['DEFAULT']['enable'] == 'false':
+    logging.info('Ini file.enable currently set to false. Exit program.')
     exit()
         
         
@@ -72,57 +73,57 @@ def retrieve_raw_data():
 
 
 def get_cpu_temp(raw_data_map):
-    logging.info("Getting CPU temperature...")
+    logging.info('Getting CPU temperature...')
     try:
         unit = config['DEFAULT']['tempunit']
         switch={
           'c': str(raw_data_map['cpu_temp']) + '°C',
           'f': str(round_down_to_one_decimal(float(raw_data_map['cpu_temp']) * 1.8) + 32) + '°F'
         }
-        cpu_temp = switch.get(unit,"Invalid")
+        cpu_temp = switch.get(unit,'Invalid')
     except NameError:
         traceback.print_exc(limit=None, file=None, chain=False)
         logging.error('NameError thrown getting CPU temp, defaulting to Celsius')
         cpu_temp = str(raw_data_map['cpu_temp']) + '°C'
     logging.info(cpu_temp)
-    logging.info("Done.")
+    logging.info('Done.')
     return cpu_temp
 
 
 def get_cpu_usage(raw_data_map):
-    logging.info("Getting CPU usage...")
+    logging.info('Getting CPU usage...')
     cpu_usage = '{}%'.format(raw_data_map['cpu_usage'])
     logging.info(cpu_usage)
-    logging.info("Done.")
+    logging.info('Done.')
     return cpu_usage
 
 
 def get_ram_used(raw_data_map):
-    logging.info("Getting RAM usage...")
+    logging.info('Getting RAM usage...')
     ram_info = '{}%'.format(raw_data_map['ram_used'])
     logging.info(ram_info)
-    logging.info("Done.")
+    logging.info('Done.')
     return ram_info
 
 
 def get_disk_used(raw_data_map):
-    logging.info("Getting disk usage...")
+    logging.info('Getting disk usage...')
     disk_used = '{}%'.format(raw_data_map['disk_used'])
     logging.info(disk_used)
-    logging.info("Done.")
+    logging.info('Done.')
     return disk_used
 
 
 def get_time(raw_data_map):
-    logging.info("Getting timestamp...")
+    logging.info('Getting timestamp...')
     time = str(raw_data_map['timestamp'])[0:str(raw_data_map['timestamp']).index('.')][0:-3]
     logging.info(time)
-    logging.info("Done.")
+    logging.info('Done.')
     return time
 
 
 def get_ip(raw_data_map):
-    logging.info("Getting IP address...")
+    logging.info('Getting IP address...')
     # NOTE: ends with a SPACE and an ENTER, need to remove last 2 chars
     ip = raw_data_map['ip'][0:-2]
     try:
@@ -130,36 +131,36 @@ def get_ip(raw_data_map):
     except ValueError as ve:
         pass
     logging.info(ip)
-    logging.info("Done.")
+    logging.info('Done.')
     return ip
 
 # main...
 def main():
     try:
         # init display
-        logging.info("Initializing ePaper display...")
+        logging.info('Initializing ePaper display...')
         epd = epd2in13_V3.EPD()
         epd.init()
         # epd.Clear(0xFF)
-        logging.info("Done.")
+        logging.info('Done.')
 
         # get data
         raw_data_map = retrieve_raw_data()
         ip = get_ip(raw_data_map)
         
         # init fonts
-        logging.info("Getting fonts...")
+        logging.info('Getting fonts...')
         font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
         font13 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 14)
-        logging.info("Done.")
+        logging.info('Done.')
 
         # draw display
-        logging.info("Writing bmp image into buffer...")
+        logging.info('Writing bmp image into buffer...')
         image = Image.open(os.path.join(picdir + '/bmps', 'combined.bmp'))
         draw = ImageDraw.Draw(image)
-        logging.info("Done.")
+        logging.info('Done.')
 
-        logging.info("Writing data into buffer...")
+        logging.info('Writing data into buffer...')
         top_padding = 15
         left_padding = 50
         # top row - CPU usage %, CPU temperature
@@ -182,19 +183,19 @@ def main():
                   fill=0)
         # bottom row - Timestamp, IP address
         draw.text((5, 85 + top_padding),
-                  get_time(raw_data_map) + ((" | " + ip) if (ip is None or len(ip) > 0) else ""),
+                  get_time(raw_data_map) + ((' | ' + ip) if (ip is None or len(ip) > 0) else ''),
                   font=font13,
-                  fill=0)  # remove seconds, if no ip then ""
-        logging.info("Done.")
+                  fill=0)  # remove seconds, if no ip then ''
+        logging.info('Done.')
 
-        logging.info("Displaying the buffer onto the ePaper")
+        logging.info('Displaying the buffer onto the ePaper')
         epd.display(epd.getbuffer(image))
-        logging.info("Done.")
+        logging.info('Done.')
 
         # sleep
-        logging.info("Putting ePaper display to sleep...")
+        logging.info('Putting ePaper display to sleep...')
         epd.sleep()
-        logging.info("Done.")
+        logging.info('Done.')
 
         exit()
 
@@ -202,9 +203,9 @@ def main():
         logging.error(e)
 
     except KeyboardInterrupt:
-        logging.info("User Pressed [Ctrl] + [c]. KeyboardInterrupt ending script...")
+        logging.info('User Pressed [Ctrl] + [c]. KeyboardInterrupt ending script...')
         epd2in13_V3.epdconfig.module_exit()
-        logging.info("Done.")
+        logging.info('Done.')
         exit()
 
 
