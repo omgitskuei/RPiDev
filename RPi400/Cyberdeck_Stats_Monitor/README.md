@@ -44,6 +44,7 @@ The scripts clear.py (clears the display) and update.py (gets and writes data on
 | Raspberry Pi 400 | A Raspberry Pi computer with a quad-core 64-bit processor, 4GB of RAM, wireless networking, dual-display output, and 4K video playback, as well as a 40-pin GPIO header. | [Raspberry Pi 400][rp400link] | Necessary |
 | Waveshare ePaper 2.13 inch Black/White display HAT | Note there's multiple two-colored 2.13" ePaper displays from Waveshare - the component used here does not have the "(B)", "(C)", or "(D)" in its name. | [Waveshare ePaper 2.13" HAT][WaveshareEPDlink] | Necessary |
 | Adafruit Cyberdeck Bonnett | It's a plug-and-play HAT attached to the GPIO pins. For the Raspberry Pi 400, it attaches at a slant with the HAT's pins facing the user. It's called a 'bonnett' because it's about half the size of a regular HAT. | [Adafruit Cyberdeck Bonnett][Bonnettlink] | Necessary |
+| 3D Printed Case | Take the STL file to a 3D printing shop, could be ~15 USD for the case. Afterwards, have a file ready to remove any extra bits. | n/a | Optional |
 
 
 ### _Instructions_
