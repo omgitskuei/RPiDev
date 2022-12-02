@@ -10,24 +10,34 @@ from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
 import configparser
 import traceback
+import RPi.GPIO as GPIO
 
 logging.basicConfig(level=logging.DEBUG)
 
-logging.info('Getting path for ../library containing ePaper HAT display module')
-libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
+# get /library directories
+logging.info('Getting path for /library containing ePaper HAT display module...')
+lib_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
                       'library')
-if os.path.exists(libdir):
-    sys.path.append(libdir)
+if os.path.exists(lib_dir):
+    sys.path.append(lib_dir)
+    logging.info('lib_dir={}'.format(lib_dir))
+else:
+    logging.info('ePaper HAT display module not found at {}. Exiting program.'.format(lib_dir))
+    exit()
 from waveshare_epd import epd2in13_V3
 logging.info('Done.')
 
-logging.info('Get path for /pic... containing bmp files, fonts, photos')
-picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
+
+# get /pic directories
+logging.info('Getting path for /pic containing bmp files, fonts, photos...')
+pic_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
                       'pic')
+logging.info('pic_dir={}'.format(pic_dir))
 logging.info('Done.')
 
 
 # read/create config ini file
+logging.info('Reading .ini file with configparser...')
 config = configparser.ConfigParser()
 ini_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__))) + '/cyberdeck_stats_monitor_config.ini'
 logging.info('ini_path={}'.format(ini_path))
@@ -47,11 +57,31 @@ except IOError:
     with open(ini_path, 'w') as ini:
         config.write(ini)
         config.read(ini_path)
-
+# check if disabled by ini file
 if config['DEFAULT']['enable'] == 'false':
-    logging.info('Ini file.enable currently set to false. Exit program.')
+    logging.info('Ini file.enable currently set to false. Exiting program.')
     exit()
-        
+logging.info('Done.')
+
+
+def isDisplayPluggedIn():
+    logging.info('Checking if display is plugged in...')
+    pluggedIn = False
+    try:
+        GPIO.setmode(GPIO.BCM) 
+        GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        if GPIO.input(17) == GPIO.HIGH:
+            logging.info("Display not plugged in")
+        else:
+            logging.info("Display is plugged in")
+            pluggedIn = True
+    except KeyboardInterrupt:
+        pass
+    finally:
+        GPIO.cleanup()
+    logging.info('Done')
+    return pluggedIn
+
         
 # Note: Takes a float and truncates it to one decimal places, returns the number
 # as a decimal
@@ -62,7 +92,8 @@ def round_down_to_one_decimal(a_float):
 
 # Returns raw data values
 def retrieve_raw_data():
-    return {
+    logging.info('Getting raw data...')
+    raw = {
         'cpu_temp' : round_down_to_one_decimal(gpiozero.CPUTemperature().temperature),
         'cpu_usage' : psutil.cpu_percent(),
         'ram_used' : psutil.virtual_memory()[2],
@@ -70,12 +101,15 @@ def retrieve_raw_data():
         'timestamp' : datetime.now(),
         'ip' : os.popen('hostname -I').readline()
     }
+    logging.info('Done.')
+    return raw
 
 
 def get_cpu_temp(raw_data_map):
     logging.info('Getting CPU temperature...')
     try:
         unit = config['DEFAULT']['tempunit']
+        logging.info('Temperature unit set by ini file to {}'.format(unit))
         switch={
           'c': str(raw_data_map['cpu_temp']) + '°C',
           'f': str(round_down_to_one_decimal(float(raw_data_map['cpu_temp']) * 1.8) + 32) + '°F'
@@ -136,6 +170,12 @@ def get_ip(raw_data_map):
 
 # main...
 def main():
+    if isDisplayPluggedIn():
+        pass
+    else:
+        logging.info('Exiting Program.')
+        exit()
+    
     try:
         # init display
         logging.info('Initializing ePaper display...')
@@ -146,21 +186,20 @@ def main():
 
         # get data
         raw_data_map = retrieve_raw_data()
-        ip = get_ip(raw_data_map)
         
         # init fonts
         logging.info('Getting fonts...')
-        font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
-        font13 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 14)
+        font24 = ImageFont.truetype(os.path.join(pic_dir, 'Font.ttc'), 24)
+        font13 = ImageFont.truetype(os.path.join(pic_dir, 'Font.ttc'), 14)
         logging.info('Done.')
 
         # draw display
         logging.info('Writing bmp image into buffer...')
-        image = Image.open(os.path.join(picdir + '/bmps', 'combined.bmp'))
+        image = Image.open(os.path.join(pic_dir + '/bmps', 'combined.bmp'))
         draw = ImageDraw.Draw(image)
         logging.info('Done.')
 
-        logging.info('Writing data into buffer...')
+        logging.info('Writing stats data into buffer...')
         top_padding = 15
         left_padding = 50
         # top row - CPU usage %, CPU temperature
@@ -182,6 +221,7 @@ def main():
                   font=font24,
                   fill=0)
         # bottom row - Timestamp, IP address
+        ip = get_ip(raw_data_map)
         draw.text((5, 85 + top_padding),
                   get_time(raw_data_map) + ((' | ' + ip) if (ip is None or len(ip) > 0) else ''),
                   font=font13,
@@ -195,17 +235,19 @@ def main():
         # sleep
         logging.info('Putting ePaper display to sleep...')
         epd.sleep()
-        logging.info('Done.')
-
+        logging.info('Done. Exiting program.')
         exit()
 
     except IOError as e:
         logging.error(e)
+        epd2in13_V3.epdconfig.module_exit()
+        logging.info('Exiting program.')
+        exit()
 
     except KeyboardInterrupt:
         logging.info('User Pressed [Ctrl] + [c]. KeyboardInterrupt ending script...')
         epd2in13_V3.epdconfig.module_exit()
-        logging.info('Done.')
+        logging.info('Exiting program.')
         exit()
 
 
