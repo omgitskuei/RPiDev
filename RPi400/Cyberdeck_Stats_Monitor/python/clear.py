@@ -49,6 +49,7 @@ if config['DEFAULT']['enable'] == 'false':
     exit()
 logging.info('Done.')
 
+# check if display is plugged into GPIO
 def isDisplayPluggedIn():
     logging.info('Checking if display is plugged in...')
     pluggedIn = False
@@ -61,7 +62,8 @@ def isDisplayPluggedIn():
             logging.info("Display is plugged in")
             pluggedIn = True
     except KeyboardInterrupt:
-        pass
+        logging.info('KeyboardInterrupt thrown when evaluating if display is plugged in. Returning False to exit program.')
+        return False
     finally:
         GPIO.cleanup()
     logging.info('Done.')

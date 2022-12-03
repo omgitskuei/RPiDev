@@ -64,6 +64,7 @@ if config['DEFAULT']['enable'] == 'false':
 logging.info('Done.')
 
 
+# check if display is plugged into GPIO
 def isDisplayPluggedIn():
     logging.info('Checking if display is plugged in...')
     pluggedIn = False
@@ -71,16 +72,19 @@ def isDisplayPluggedIn():
         GPIO.setmode(GPIO.BCM) 
         GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         if GPIO.input(17) == GPIO.HIGH:
-            logging.info("Display not plugged in")
+            logging.info('Display not plugged in')
         else:
-            logging.info("Display is plugged in")
+            logging.info('Display is plugged in')
             pluggedIn = True
     except KeyboardInterrupt:
-        pass
+        logging.info('KeyboardInterrupt thrown when evaluating if display is plugged in. Returning False to exit program.')
+        pluggedIn = False
     finally:
+        logging.info('Done')
         GPIO.cleanup()
-    logging.info('Done')
-    return pluggedIn
+        return pluggedIn
+    
+   
 
         
 # Note: Takes a float and truncates it to one decimal places, returns the number
@@ -181,7 +185,6 @@ def main():
         logging.info('Initializing ePaper display...')
         epd = epd2in13_V3.EPD()
         epd.init()
-        # epd.Clear(0xFF)
         logging.info('Done.')
 
         # get data
@@ -240,13 +243,11 @@ def main():
 
     except IOError as e:
         logging.error(e)
-        epd2in13_V3.epdconfig.module_exit()
         logging.info('Exiting program.')
         exit()
 
     except KeyboardInterrupt:
         logging.info('User Pressed [Ctrl] + [c]. KeyboardInterrupt ending script...')
-        epd2in13_V3.epdconfig.module_exit()
         logging.info('Exiting program.')
         exit()
 
