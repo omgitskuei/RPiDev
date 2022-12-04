@@ -305,11 +305,11 @@ Under "Manual > Resources > Datasheet > 2.13inch e-Paper Specification V3 (pdf) 
 ### Temporarily disable the display
 
 1. To stop the display from refreshing, run clear.py.
-2. Open the .ini file with Notepad++ and change enable=true to enable=false
+2. Open the .ini file with Notepad++ and change ```enable=true``` to ```enable=false```.
 
-OR 
+AND/OR
 
-1. Don't plug in the display - :heavy_exclamation_mark: Note, this still uses up the GPIO pins meaning it will probably interfere with other projects also using the pins.
+1. Don't plug in the display - :heavy_exclamation_mark: Note, if display is not plugged in BUT enable=true, this still uses up the GPIO pins every 4 mins meaning it will probably interfere with other projects also using the pins. This is fine if nothing is using the GPIO pins though using the .ini file too is best.
 
 ### Uninstalling by removing cron jobs/systemd services and timers
 
