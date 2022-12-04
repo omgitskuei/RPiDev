@@ -47,14 +47,12 @@ When shutdown is initiated, the linux system will automatically run clear.py bef
 ## To Do List
 
 - 3D print the case that will house the ePaper and Bonnet, sand and spray paint the case, and slot it over the components.
-- Add a stdout/stderr to all systemd jobs.
-- Add GPIO sensing Pin 17 GRD as input, to determine if the project is plugged in or not.
 
 
 ## Expansion
 
 - Consider adding a 'page 2' of stats, like Uptime, battery charge (if it had a battery), weather forecast.
-- The Bonnet actually has 2 STEMMA connections (3 pins) and STEMMA QT connections. Perhaps I could add speakers to the Raspberry Pi 400.
+- The Bonnet actually has 2 STEMMA connections (3 pins) and STEMMA QT connections. Perhaps I could add speakers to the Raspberry Pi 400 or other sensors like humidity. First they would have to be in stock.
 
 
 ## Tutorial
@@ -79,7 +77,7 @@ Plug the Waveshare ePaper 2.13" display HAT (aka 'ePaper') into the Bonnet's GPI
 
 Plug the Bonnet's slanted GPIO socket into the Raspberry Pi 400's (aka 'Pi') GPIO pins such that the ePaper's display is facing the keyboard user.
 
-Your components should be connected like shown in the photo. Unlike the photo, your ePaper should currently be a blank white. The photo is showing my Programmer handle OmgItsKuei by running a script that draws a black rectangle and writing in white over the rectangle. This script was used to practice using the Waveshare ePaper python library.
+Your components should be connected like shown in the photo. Unlike the photo, your ePaper should currently be a blank white. The photo is showing my Programmer handle OmgItsKuei by running the script ```epaper_omgitskuei_test.py``` in ```RPiDev\RPi400\Cyberdeck_Stats_Monitor\python\references```. The script draws a black rectangle and writing in white over the rectangle. This script was used to practice using the Waveshare ePaper python library. You can use run it to test your ePaper display.
 ![guidepic1](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic1.JPG?raw=false "Guide, Step 1")
   </p>
 </details>
@@ -116,8 +114,8 @@ I recommend saving the repo RPiDev in /home/yourUser/. Later commands use that d
 
 ![guidepic3](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic3.JPG?raw=false "Guide, Step 3")
 
-:heavy_exclamation_mark:  The file structure of the folder `Cyberdeck_Stats_Monitor` must remain unchanged. 
-			
+:heavy_exclamation_mark:  The file structure of the folder `Cyberdeck_Stats_Monitor` must remain unchanged as these files and (except the .service, .timer files) their relative locations to each other are essential.
+
     .
     ├── /library
         ├── /waveshare_epd
@@ -140,37 +138,81 @@ I recommend saving the repo RPiDev in /home/yourUser/. Later commands use that d
 
 
 <details>
-  <summary>Step 4 - Add Cron jobs to run clear.py on reboot (startup and restart) and update.py every 5 mins</summary>
-  <p>Start the Linux terminal and input this command to start adding cron jobs.
+  <summary>Step 4 - Use systemd to run update.py every 4 mins</summary>
+  <p>1. Start the Linux terminal and input this command to copy-paste the service files and the timer file into /etc/systemd/system
+```Linux Kernel Module
+sudo cp /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/cyberdeck_repeat4m_update.service /etc/systemd/system
+```
+
+```Linux Kernel Module
+sudo cp /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/cyberdeck_repeat4m_update.timer /etc/systemd/system
+```
+
+2. Enable the service by inputting the command.
+```Linux Kernel Module
+sudo systemctl enable cyberdeck_repeat4m_update.timer
+```
+
+3. Restart the systemctl program which keeps a tab on all services and timers
+```Linux Kernel Module
+sudo systemctl daemon-reload
+```
+  </p>
+</details>
+
+<details>
+  <summary>Step 4 - Use Cron to run update.py every 4 mins</summary>
+  <p>1. Start the Linux terminal and input this command to start adding cron jobs.
 		
 ```Linux Kernel Module
 crontab -e
 ```
 
-You'll see something like this picture. Add the missing white text.
-
+You'll see something like this picture.
+	  
 ![guidepic4](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic4.png?raw=false "Guide, Step 4")
 
+2. Type the following command to add a new cronjob that runs update.py right after starting up the computer. If you don't want log files, don't write past the ".py", however I recommend having log files. The reason we have to add a cronjob for reboot on top of adding another cronjob for running every 4 mins is because a repeating crontab job does not run until its interval has elapsed at least once. Without doing this step, the display would not start until 4 minutes after startup.
+
 ```Linux Kernel Module
-@reboot /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/python/clear.py > /home/yourUser/Documents/logs/cyberdeck_reboot_clear.log 2>&1
+@reboot /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/python/update.py 1> /home/yourUser/RPiDev/RPi400/Cyberdeck_Stats_Monitor/logs/cyberdeck_repeat4m_update_service_stdout.log 2> /home/yourUser/RPiDev/RPi400/Cyberdeck_Stats_Monitor/logs/cyberdeck_repeat4m_update_service_stderr.log
 ```
 
-For easy debugging, I recommend adding the command to explicitly send the job's output to a log file by adding ```> [path] [STDOUT, STDERR, both]``` to the end of each job. The ```2>&1``` means writing both writing job output and job errors to the same log file. Note, you can use ```>>``` if you want to append contents to the log files instead of overwrite the log files.
-    
-- Add a crontab job to run the ```clear.py``` script on reboot (reboot startup as well as restart) - requires Linux system to use crontab. To get this step to work on Windows/Mac, an equivalent to the crontab program is needed. 
-- Then, add a crontab job to run the ```cyberdeck_stats_monitor.py``` script immediately on startup. This is because a repeating crontab job does not run until its interval has elapsed at least once. Without doing this step, the display would not start until 5 minutes after startup.
-- Lastly, add a crontab job to run the cyberdeck_stats_monitor.py script every 5 minutes. This interval can be modified to the user's liking. That said, Waveshare recommends refresh intervals between 3 minutes and 24 hours. :heavy_exclamation_mark: [See Appendix B for details and other precautions][Apdx]. If you want to execute the ```cyberdeck_stats_monitor.py``` script just once, the 'meat' of cyberdeck_stats_monitor.py needs to be wrapped in a loop so it stays running after executing it once - if you're doing this, pay attention to the Appendix B on how to implement ePaper. 
+- For easy debugging, the command explicitly instructs Cron to create/overwrite 2 log files that documents how running update.py went at reboot.
+- The ```1> /home/yourUser/RPiDev/RPi400/Cyberdeck_Stats_Monitor/logs/cyberdeck_repeat4m_update_service_stdout.log``` outputs ```logging.info()``` and ```logging.debug()``` from update.py if the script exited due to successfully running from start to finish.
+- The ```2> /home/yourUser/RPiDev/RPi400/Cyberdeck_Stats_Monitor/logs/cyberdeck_repeat4m_update_service_stderr.log``` outputs if update.py exited due to exceptions being thrown.
+- If you want one log file instead of two files, you can also explicitly instruct Cron to output to the same file with ```[filepath] 2>&1``` instead.
+```Linux Kernel Module
+@reboot /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/python/update.py /home/yourUser/RPiDev/RPi400/Cyberdeck_Stats_Monitor/logs/cyberdeck_repeat4m_update_service_stdout.log 2>&1
+```
+- Note, you can use ```>>``` if you want to append contents to the log files instead of overwrite the log files. I don't recommend this as the log files can easily get massive in size over time if the user forgets to delete it periodically. Also, if something fails, odds are that the cause of failure won't be different by the time the log file is overwritten again.
+
+3. Type in the following command to add a new cronjob that runs update.py every 4 mins. This interval can be modified to the user's liking. That said, Waveshare recommends refresh intervals between 3 minutes and 24 hours. :heavy_exclamation_mark: [See Appendix B for details and other precautions][Apdx]. If you want to execute the ```cyberdeck_stats_monitor.py``` script just once, the 'meat' of cyberdeck_stats_monitor.py needs to be wrapped in a loop so it stays running after executing it once - if you're doing this, pay attention to the Appendix B on how to implement ePaper. 
+
+```Linux Kernel Module
+*/4 * * * * /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/python/update.py 1> /home/yourUser/RPiDev/RPi400/Cyberdeck_Stats_Monitor/logs/cyberdeck_repeat4m_update_service_stdout.log 2> /home/yourUser/RPiDev/RPi400/Cyberdeck_Stats_Monitor/logs/cyberdeck_repeat4m_update_service_stderr.log
+```
   </p>
 </details>
 
 
 <details>
   <summary>Step 5 - Use systemd to run clear.py script before shutdown</summary>
-  <p>
-Add the systemd unit file cyberdeck_stats_monitor_systemd_unit.service configured to run the clear.py script right before shutdown - requires Linux system to use systemd.
+  <p>1. Star the terminal and input the command.
+```Linux Kernel Module
+sudo cp /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/cyberdeck_shutdown_clear.service /etc/systemd/system
+```
 
-For other OS, you need an alternative to systemd to run the clear.py before shutdown. 
+2. Enable the service by inputting the command.
+```Linux Kernel Module
+sudo systemctl enable cyberdeck_shutdown_clear.service
+```
 
+3. Restart the systemctl program which keeps a tab on all services and timers
+```Linux Kernel Module
+sudo systemctl daemon-reload
+```
+	  
 :heavy_exclamation_mark: See Appendix C for why we're running the clear.py script before every shutdown. It goes into [proper storage][Apdx] for the ePaper. 
 		
 Start the Linux terminal emulator and input 
