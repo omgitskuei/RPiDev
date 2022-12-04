@@ -14,6 +14,10 @@ This Raspberry Pi 400 project displays ...
 The scripts clear.py (clears the display) and update.py (gets and writes data onto the display) are written in python.
 
 
+## Overview/Flowchart
+![flowchart](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/flowchart/flowchart.JPG?raw=false "Flowchart")
+  </p>
+
 ## Limitations
 
 - This project has not been tested on other Raspberry Pi models besides Raspberry Pi 400, but if the OS is Raspberry Pi OS (Bullseye) then it should work.
