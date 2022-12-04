@@ -140,6 +140,7 @@ I recommend saving the repo RPiDev in /home/yourUser/. Later commands use that d
 <details>
   <summary>Step 4 - Use systemd to run update.py every 4 mins</summary>
   <p>1. Start the Linux terminal and input this command to copy-paste the service files and the timer file into /etc/systemd/system
+
 ```Linux Kernel Module
 sudo cp /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/cyberdeck_repeat4m_update.service /etc/systemd/system
 ```
@@ -152,7 +153,8 @@ sudo cp /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/cyberdec
 ```Linux Kernel Module
 sudo systemctl enable cyberdeck_repeat4m_update.timer
 ```
-
+- For easy debugging, the service file explicitly instructs systemd to create/overwrite 2 log files that documents how running update.py went at reboot. The user can remove StandardOutput= and StandardError in cyberdeck_repeat4m_update.service though I don't recommend this.
+	  
 3. Restart the systemctl program which keeps a tab on all services and timers
 ```Linux Kernel Module
 sudo systemctl daemon-reload
@@ -198,7 +200,7 @@ You'll see something like this picture.
 
 <details>
   <summary>Step 5 - Use systemd to run clear.py script before shutdown</summary>
-  <p>1. Star the terminal and input the command.
+  <p>1. Star the terminal and input the command to copy the service file and paste it into /etc/systemd/system.
 ```Linux Kernel Module
 sudo cp /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/cyberdeck_shutdown_clear.service /etc/systemd/system
 ```
@@ -207,50 +209,26 @@ sudo cp /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/cyberdec
 ```Linux Kernel Module
 sudo systemctl enable cyberdeck_shutdown_clear.service
 ```
+- For easy debugging, the service file explicitly instructs systemd to create/overwrite 2 log files that documents how running update.py went at reboot. The user can remove StandardOutput= and StandardError in cyberdeck_shutdown_clear.service though I don't recommend this.
+
+![guidepic7](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic7.png?raw=false "Guide, Step 7")
 
 3. Restart the systemctl program which keeps a tab on all services and timers
 ```Linux Kernel Module
 sudo systemctl daemon-reload
 ```
-	  
+
 :heavy_exclamation_mark: See Appendix C for why we're running the clear.py script before every shutdown. It goes into [proper storage][Apdx] for the ePaper. 
-		
-Start the Linux terminal emulator and input 
-
-```Linux Kernel Module
-sudo cp [wherever you saved this folder]/Cyberdeck_Stats_Monitor/cyberdeck_stats_monitor_systemd_unit.service. /etc/systemd/system
-```
-
-Ignore the ```scrot``` commands - they're for taking this screenshot.
-
-:heavy_exclamation_mark: The .service file shown in the screenshot is missing the [Install] config - see the file's contents [here][serviceFile] for the missing [Install] config.
-
-![guidepic5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic5.png?raw=false "Guide, Step 5")
-
-Refresh the systemd configuration files by entering this command into terminal.
-
-```Linux Kernel Module
-sudo systemctl daemon-reload
-```
   </p>
 </details>
 
 
 <details>
-  <summary>Step 6 - Enable the cyberdeck_stats_monitor_systemd_unit.service in /etc/systemd/system so that it runs at the next boot</summary>
-  <p>Open the Linux terminal emulator and input systemctl enable cyberdeck_stats_monitor_systemd_unit.
-
-![guidepic7](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic7.png?raw=false "Guide, Step 7")
-  </p>
-</details>
-
-
-<details>
-  <summary>Step 7 - Try running the scripts through terminal</summary>
+  <summary>Step 6 - Try running the scripts through terminal</summary>
   <p>Try running the update.py script throught terminal with cd and python3.
 
 ```Linux Kernel Module
-cd omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/python
+cd /home/yourUser/RPiDev/RPi400/Cyberdeck_Stats_Monitor/python
 python3 update.py
 ```
 
