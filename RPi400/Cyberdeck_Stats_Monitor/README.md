@@ -1,6 +1,6 @@
 # Cyberdeck Stats Monitor for the Raspberry Pi 400
 
-![titlepic](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v4.JPG?raw=false "Title image")
+![titlepic](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/intro.JPG?raw=false "Title image")
 
 This Raspberry Pi 400 project displays ...
 - CPU usage %, 
@@ -183,7 +183,7 @@ Ignore the ```scrot``` commands - they're for taking this screenshot.
 
 :heavy_exclamation_mark: The .service file shown in the screenshot is missing the [Install] config - see the file's contents [here][serviceFile] for the missing [Install] config.
 
-![guidepic5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic5_1.png?raw=false "Guide, Step 5")
+![guidepic5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic5.png?raw=false "Guide, Step 5")
 
 Refresh the systemd configuration files by entering this command into terminal.
 
@@ -198,7 +198,7 @@ sudo systemctl daemon-reload
   <summary>Step 6 - Enable the cyberdeck_stats_monitor_systemd_unit.service in /etc/systemd/system so that it runs at the next boot</summary>
   <p>Open the Linux terminal emulator and input systemctl enable cyberdeck_stats_monitor_systemd_unit.
 
-![guidepic7](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic7_1.png?raw=false "Guide, Step 7")
+![guidepic7](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/guidepic7.png?raw=false "Guide, Step 7")
   </p>
 </details>
 
@@ -291,7 +291,7 @@ Version 3 - added timestamp and ip address.
 ![v3](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v3.JPG?raw=false "Versions, V3")
 
 Version 4 - noticed that running the script at reboot will return an empty string for ip address - the display would show (eg.) ```| 2022-01-13 10:55```. Swapped their placements so that if there's no IP, it can return an empty string without changing the timestamp's placement and also not print an unnecessary "|". A thing to note is that the timestamp might also be 'wrong' when first run on reboot, returning time in UTC not localtime. This is caused by the cronjob @reboot running too early before the OS has fetched localtime. There may not be any way to fix this unless systemd is used instead of cron for the reboot's script run because systemd can specify the order in which the script is run whereas cron can't specify order.
-![v4](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v4_1.JPG?raw=false "Versions, V4")
+![v4](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v4.JPG?raw=false "Versions, V4")
 
 Version 5 - added configparser to read ini file - the ini file can modify the display to show Farenheit instead of Celsius (default) and can also disable the display being refreshed. Noticed this version breaks the cron job due to Permission Denied when trying to read the ini file.
 ![v5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v5.JPG?raw=false "Versions, V5")
