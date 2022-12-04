@@ -300,6 +300,27 @@ Under "Manual > Resources > Datasheet > 2.13inch e-Paper Specification V3 (pdf) 
 </details>
 
 
+## Usage - How to disable or uninstall it?
+
+### Temporarily disable the display
+
+1. To stop the display from refreshing, run clear.py.
+2. Open the .ini file with Notepad++ and change enable=true to enable=false
+
+OR 
+
+1. Don't plug in the display - :heavy_exclamation_mark: Note, this still uses up the GPIO pins meaning it will probably interfere with other projects also using the pins.
+
+### Uninstalling by removing cron jobs/systemd services and timers
+
+1. ```crontab -e``` and remove the cron jobs
+
+OR
+
+1. ```systemctl disable [the timer and service files]```
+2. ```sudo rm [the timer and service files]``` :heavy_exclamation_mark: Be careful with the rm command, double check for typos!
+3. ```sudo systemctl daemon-reload```
+
 ## Change Logs
 
 Version 1 - first attempt at writing data onto the display. The two black lines divide the width and length into halves.
