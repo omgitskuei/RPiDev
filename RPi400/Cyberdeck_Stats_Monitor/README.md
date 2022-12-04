@@ -13,6 +13,7 @@ This Raspberry Pi 400 project displays ...
 ... on a Waveshare ePaper (250 x 122 pixels, 2.13 inch EPD HAT for Raspberry Pi, Black/White, RPI SPI interface) connected to a Adafruit Cyberdeck Bonnett (which then connects to the Raspberry Pi 400's GPIO pins).
 The scripts clear.py (clears the display) and update.py (gets and writes data onto the display) are written in python.
 
+This project is also shared on Hackster.io! https://www.hackster.io/omgitskuei/cyberdeck-stats-monitor-abaa8d
 
 ## Overview/Flowchart
 
