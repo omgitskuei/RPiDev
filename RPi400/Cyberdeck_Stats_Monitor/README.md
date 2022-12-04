@@ -201,6 +201,7 @@ You'll see something like this picture.
 <details>
   <summary>Step 5 - Use systemd to run clear.py script before shutdown</summary>
   <p>1. Star the terminal and input the command to copy the service file and paste it into /etc/systemd/system.
+	  
 ```Linux Kernel Module
 sudo cp /home/yourUser/omgitskuei/RPiDev/RPi400/Cyberdeck_Stats_Monitor/cyberdeck_shutdown_clear.service /etc/systemd/system
 ```
