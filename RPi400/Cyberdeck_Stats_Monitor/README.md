@@ -47,7 +47,7 @@ When shutdown is initiated, the linux system will automatically run clear.py bef
 ## To Do List
 
 - 3D print the case that will house the ePaper and Bonnet, sand and spray paint the case, and slot it over the components.
-
+- Add screenshot of Version 5 Permission Denied error message to stderr log.
 
 ## Expansion
 
@@ -318,6 +318,8 @@ Version 5 - added configparser to read ini file - the ini file can modify the di
 ![v5](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/pic/photos/v5.JPG?raw=false "Versions, V5")
 
 Version 6 - replaced cron jobs with systemd instead, debugged Permission denied when trying to read ini file, debugged systemd unit file shutdown service causing shutdown to hang when display is not plugged in by removing unit "Requires=".
+
+Version 7 - added software to check if display is plugged in, if not, exit right away.
 
 ## License
 
