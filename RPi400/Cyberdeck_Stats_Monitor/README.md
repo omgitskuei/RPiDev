@@ -15,8 +15,27 @@ The scripts clear.py (clears the display) and update.py (gets and writes data on
 
 
 ## Overview/Flowchart
-![flowchart](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/flowchart/flowchart.jpg?raw=false "Flowchart")
+
+After boot, the linux system will automatically running update.py every 4 minutes.
+When shutdown is initiated, the linux system will automatically run clear.py before shutdown finishes.
+
+<details>
+  <summary>Flowchart for update.py</summary>
+  <p>
+  ![flowchart](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/flowchart/flowchart_update.jpg?raw=false "Flowchart for update.py")
   </p>
+</details>
+
+
+<details>
+  <summary>Flowchart for clear.py</summary>
+  <p>
+  ![flowchart](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/flowchart/flowchart_clear.jpg?raw=false "Flowchart for clear.py")
+  </p>
+</details>
+
+
+
 
 ## Limitations
 
