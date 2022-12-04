@@ -15,9 +15,8 @@ The scripts clear.py (clears the display) and update.py (gets and writes data on
 
 
 ## Overview/Flowchart
-![flowchart](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/flowchart/flowchart.PNG?raw=false "Flowchart")
+![flowchart](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/flowchart/flowchart.JPG?raw=false "Flowchart")
   </p>
-
 
 ## Limitations
 
