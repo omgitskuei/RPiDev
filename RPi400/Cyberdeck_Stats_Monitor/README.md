@@ -22,19 +22,18 @@ When shutdown is initiated, the linux system will automatically run clear.py bef
 <details>
   <summary>Flowchart for update.py</summary>
   <p>
-  ![flowchart](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/flowchart/flowchart_update.jpg?raw=false "Flowchart for update.py")
+    
+![flowchart_update](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/flowchart/flowchart_update.jpg "Overview of update.py")
   </p>
 </details>
-
 
 <details>
   <summary>Flowchart for clear.py</summary>
   <p>
-  ![flowchart](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/flowchart/flowchart_clear.jpg?raw=false "Flowchart for clear.py")
+    
+![flowchart_clear](https://github.com/omgitskuei/RPiDev/blob/main/RPi400/Cyberdeck_Stats_Monitor/flowchart/flowchart_clear.jpg "Flowchart for clear.py")
   </p>
 </details>
-
-
 
 
 ## Limitations
@@ -122,15 +121,20 @@ I recommend saving the repo RPiDev in /home/yourUser/. Later commands use that d
     .
     ├── /library
         ├── /waveshare_epd
+          ├── __init__.py
 	        ├── epd2in13_V3.py
+          ├── epdconfig.py
     ├── /pic
         ├── Font.ttc
         ├── /bmps
             ├── combined.bmp
     ├── /python
         ├── clear.py
-        ├── cyberdeck_stats_monitor.py
-    ├── cyberdeck_stats_monitor_systemd_unit.service
+        ├── update.py
+    ├── cyberdeck_repeat4m_update.service
+    ├── cyberdeck_repeat4m_update.timer
+    ├── cyberdeck_shutdown_clear.service
+    ├── cyberdeck_stats_monitor_config.ini
   </p>
 </details>
 
